@@ -1,10 +1,9 @@
-<mat-toolbar class="top-toolbar" color="warn">
-  <button mat-icon-button>
+<mat-toolbar class="top-toolbar" color="primary">
+  <button mat-icon-button (click)="toggleSideNav(sideNav)">
     <mat-icon>menu</mat-icon>
   </button>
   <span>Welecome to dob !</span>
 
-  <!-- 在這之後的都會被推到右邊去 -->
   <span class="toolbar-seprator"></span>
 
   <button mat-icon-button>
@@ -13,17 +12,27 @@
   <button mat-icon-button>
     <mat-icon>exit_to_app</mat-icon>
   </button>
-
 </mat-toolbar>
 
 <mat-sidenav-container class="app-container">
-  <mat-sidenav class="app-sidenav">
-    
+  <mat-sidenav #sideNav opened="true" mode="side" class="app-sidenav">
+    <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" style="height: 100%;">
+      <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
+        <button mat-icon-button disabled></button>
+        {{node.item}}
+      </mat-tree-node>
+      <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding>
+        <button mat-icon-button
+                [attr.aria-label]="'toggle ' + node.filename" matTreeNodeToggle>
+          <mat-icon class="mat-icon-rtl-mirror">
+            {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+          </mat-icon>
+        </button>
+        {{node.item}}
+      </mat-tree-node>
+    </mat-tree>
   </mat-sidenav>
   <mat-sidenav-content>
-    <button mat-raised-button color="primary">Hello World！</button>
-
-    <mat-icon color="accent">person</mat-icon>
-    <!-- <router-outlet></router-outlet> -->
+    <router-outlet></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>
