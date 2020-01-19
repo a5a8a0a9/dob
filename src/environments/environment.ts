@@ -13,8 +13,7 @@ export const environment = {
     storageBucket: "project-dob-ad9d5.appspot.com",
     messagingSenderId: "824344217836",
     appId: "1:824344217836:web:7c8ab614aee0c4f45dbdc9",
-    measurementId: "G-3B2LPSP69Q",
-    production: true
+    measurementId: "G-3B2LPSP69Q"
   }
 };
 
