@@ -1,0 +1,19 @@
+<mat-grid-list cols="3" rowHeight="2:1" gutterSize="16px">
+    <mat-grid-tile *ngFor="let note of noteList;let i = index">
+        <mat-card class="full-width" [tabIndex]="i">
+            <mat-card-title-group>
+                <mat-card-title>{{note.title}}</mat-card-title>
+                <mat-card-subtitle>{{note.date | date:'yyyy/MM/dd' }}</mat-card-subtitle>
+            </mat-card-title-group>
+            <mat-card-content>{{note.content}}</mat-card-content>
+            <mat-card-actions>
+                <button mat-raised-button color="primary">編輯</button>
+                <button mat-raised-button color="warn" (click)="delete(note.id)">刪除</button>
+            </mat-card-actions>
+        </mat-card>
+    </mat-grid-tile>
+</mat-grid-list>
+
+<button mat-fab color="primary" (click)="showEditDialog()" style="position: fixed;bottom: 16px;right: 16px;">
+    <mat-icon>add</mat-icon>
+</button>

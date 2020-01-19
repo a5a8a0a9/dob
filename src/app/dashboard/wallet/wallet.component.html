@@ -1,0 +1,9 @@
+<mat-card>
+    <mat-grid-list cols="7" rowHeight="2:1">
+        <mat-grid-tile *ngFor="let title of displayTitles">{{title}}</mat-grid-tile>
+    </mat-grid-list>
+
+    <mat-grid-list cols="7" rowHeight="1.5:1" *ngFor="let week of [1,2,3,4]">
+        <mat-grid-tile *ngFor="let date of [1,2,3,4,5,6,7]">{{date}}</mat-grid-tile>
+    </mat-grid-list>
+</mat-card>

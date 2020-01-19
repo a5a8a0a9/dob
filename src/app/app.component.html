@@ -16,21 +16,34 @@
 
 <mat-sidenav-container class="app-container">
   <mat-sidenav #sideNav opened="true" mode="side" class="app-sidenav">
-    <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" style="height: 100%;">
-      <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
-        <button mat-icon-button disabled></button>
-        {{node.item}}
+    <mat-tree [dataSource]="nestedDataSource" [treeControl]="nestedTreeControl" class="example-tree">
+      <mat-tree-node *matTreeNodeDef="let node">
+          <li class="mat-tree-node" [routerLink]="node.path">
+              <button mat-icon-button>
+                <mat-icon>{{node.icon}}</mat-icon>
+              </button>
+              <span>
+                {{node.name}}
+              </span>
+          </li>
       </mat-tree-node>
-      <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding>
-        <button mat-icon-button
-                [attr.aria-label]="'toggle ' + node.filename" matTreeNodeToggle>
-          <mat-icon class="mat-icon-rtl-mirror">
-            {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
-          </mat-icon>
-        </button>
-        {{node.item}}
-      </mat-tree-node>
-    </mat-tree>
+  
+      <mat-nested-tree-node *matTreeNodeDef="let node; when: hasNestedChild">
+          <li>
+              <div class="mat-tree-node">
+                  <button mat-icon-button matTreeNodeToggle>
+                      <mat-icon class="mat-icon-rtl-mirror">
+                          {{nestedTreeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+                      </mat-icon>
+                  </button>
+                  {{node.name}}
+              </div>
+              <ul [class.example-tree-invisible]="!nestedTreeControl.isExpanded(node)">
+                  <ng-container matTreeNodeOutlet></ng-container>
+              </ul>
+          </li>
+      </mat-nested-tree-node>
+  </mat-tree>
   </mat-sidenav>
   <mat-sidenav-content>
     <router-outlet></router-outlet>

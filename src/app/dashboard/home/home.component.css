@@ -1,0 +1,11 @@
+.profile-card {
+    max-width: 400px;
+    border-radius: 10px;
+    box-shadow: 10px 5px 5px darkgrey !important;
+    border: 1px dashed #9e9e9e;
+}
+
+.header-image {
+    background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+    background-size: cover;
+}

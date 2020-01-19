@@ -1,0 +1,33 @@
+<h2 mat-dialog-title>
+    新增
+</h2>
+
+<mat-dialog-content>
+    <mat-form-field class="full-width">
+        <input matInput placeholder="Title" [(ngModel)]="inputItem.title">
+    </mat-form-field>
+    <mat-form-field class="full-width">
+        <textarea matInput placeholder="Content" [(ngModel)]="inputItem.content"></textarea>
+    </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button mat-raised-button color="primary" (click)="add()">新增</button>
+    <button mat-raised-button mat-dialog-close color="warn">取消</button>
+</mat-dialog-actions>
+
+
+
+<!-- <form [formGroup]="noteForm" (ngSubmit)="add(noteForm.value)">
+    <mat-form-field class="full-width">
+        <input matInput placeholder="Title" formControlName="title">
+        <div *ngIf="noteForm.controls['title'].hasError('required') && noteForm.controls['title'].touched" class="alert alert-danger">
+            標題為必填哦!!!
+        </div>
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+        <textarea matInput placeholder="Content" formControlName="content"></textarea>
+    </mat-form-field>
+    <button mat-raised-button color="primary" type="submit" [disabled]="!noteForm.valid">新增</button>
+</form> -->
