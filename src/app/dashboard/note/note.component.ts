@@ -1,10 +1,12 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-
+import { DashboardService } from '../dashboard.service';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { Observable } from 'rxjs';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material';
 import { EditNoteComponent } from './dialogs/edit-note/edit-note.component';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+
 
 @Component({
   selector: 'app-note',
@@ -19,8 +21,15 @@ export class NoteComponent implements OnInit {
 
   noteList = [];
   noteForm: FormGroup;
+  grid_col = 3
 
-  constructor(private ngfs: AngularFirestore, private formBuilder: FormBuilder, public dialog: MatDialog) {
+  constructor(
+    private ngfs: AngularFirestore,
+    private formBuilder: FormBuilder,
+    public dialog: MatDialog,
+    private pageService: DashboardService,
+    private breakpointObserver: BreakpointObserver
+  ) {
     this.noteForm = this.formBuilder.group({
       title: new FormControl('', [Validators.required]),
       content: new FormControl('', [Validators.required]),
@@ -29,12 +38,35 @@ export class NoteComponent implements OnInit {
 
   ngOnInit() {
     this.getData();
+    this.getWidth();
+  }
+
+  getWidth() {
+    console.log();
+    this.breakpointObserver.observe(Object.values(Breakpoints)).subscribe(result => {
+      console.log(result)
+      if (result.breakpoints[Breakpoints.XSmall]) {
+        this.grid_col = 1;
+      }
+      if (result.breakpoints[Breakpoints.Small]) {
+        this.grid_col = 2;
+      }
+      if (result.breakpoints[Breakpoints.Medium]) {
+        this.grid_col = 2;
+      }
+      if (result.breakpoints[Breakpoints.Large]) {
+        this.grid_col = 3;
+      }
+      if (result.breakpoints[Breakpoints.XLarge]) {
+        this.grid_col = 4;
+      }
+    });
   }
 
   showEditDialog() {
     const dialogRef = this.dialog.open(EditNoteComponent);
     dialogRef.afterClosed().subscribe(result => {
-      if (result) {
+      if (result != '') {
         this.getData();
       }
     });
@@ -48,12 +80,11 @@ export class NoteComponent implements OnInit {
       .get()
       .subscribe(function (querySnapshot) {
         querySnapshot.forEach(function (doc) {
-          console.log(doc.data());
           env.noteList.push({
             id: doc.id,
             title: doc.data().title,
             content: doc.data().content,
-            date: new Date(doc.data().date.nanoseconds)
+            date: doc.data().date.toDate()
           });
         });
       });
@@ -65,6 +96,10 @@ export class NoteComponent implements OnInit {
       .then(() => {
         this.getData();
       });
+  }
+
+  trackByFn(item,index){
+    return item.id;
   }
 
 }
