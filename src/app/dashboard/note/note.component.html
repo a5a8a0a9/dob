@@ -1,4 +1,4 @@
-<mat-grid-list [cols]="grid_col" rowHeight="2:1" gutterSize="16px">
+<!-- <mat-grid-list [cols]="grid_col" rowHeight="2:1" gutterSize="16px">
     <mat-grid-tile *ngFor="let note of noteList;let i = index;trackBy:trackByFn">
         <mat-card class="full-width note-card" [tabIndex]="i">
             <mat-card-title-group>
@@ -7,12 +7,33 @@
             </mat-card-title-group>
             <mat-card-content>{{note.content}}</mat-card-content>
             <mat-card-actions>
-                <button mat-raised-button color="primary">編輯</button>
+                <button mat-raised-button color="primary" (click)="showEditDialog(note)">編輯</button>
                 <button mat-raised-button color="warn" (click)="delete(note.id)">刪除</button>
             </mat-card-actions>
         </mat-card>
     </mat-grid-tile>
-</mat-grid-list>
+</mat-grid-list> -->
+
+<div *ngIf="isLoading" style="display: flex;align-items: center;justify-content: center;height: 100%;">
+    <mat-spinner></mat-spinner>
+</div>
+
+<div class="waterfall" *ngIf="!isLoading" [style.column-count]="grid_col">
+    <div class="item" *ngFor="let note of noteList;let i = index;trackBy:trackByFn">
+        <mat-card [tabIndex]="i" class="note-card">
+            <mat-card-title-group>
+                <mat-card-title>{{note.title}}</mat-card-title>
+                <mat-card-subtitle>{{note.date | date:'yyyy/MM/dd hh:mm' }}</mat-card-subtitle>
+            </mat-card-title-group>
+            <mat-card-content>{{note.content}}</mat-card-content>
+            <mat-card-actions>
+                <button mat-raised-button color="primary" (click)="showEditDialog(note)">編輯</button>
+                <button mat-raised-button color="warn" (click)="delete(note.id)">刪除</button>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+</div>
+
 
 <button mat-fab color="primary" (click)="showEditDialog()" style="position: fixed;bottom: 16px;right: 16px;">
     <mat-icon>add</mat-icon>

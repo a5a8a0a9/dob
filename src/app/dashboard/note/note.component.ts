@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Title } from "@angular/platform-browser";
 import { DashboardService } from '../dashboard.service';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { Observable } from 'rxjs';
@@ -21,9 +22,11 @@ export class NoteComponent implements OnInit {
 
   noteList = [];
   noteForm: FormGroup;
-  grid_col = 3
+  grid_col = 3;
+  isLoading = false;
 
   constructor(
+    private title: Title,
     private ngfs: AngularFirestore,
     private formBuilder: FormBuilder,
     public dialog: MatDialog,
@@ -37,6 +40,7 @@ export class NoteComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.title.setTitle("筆記本");
     this.getData();
     this.getWidth();
   }
@@ -44,7 +48,6 @@ export class NoteComponent implements OnInit {
   getWidth() {
     console.log();
     this.breakpointObserver.observe(Object.values(Breakpoints)).subscribe(result => {
-      console.log(result)
       if (result.breakpoints[Breakpoints.XSmall]) {
         this.grid_col = 1;
       }
@@ -63,10 +66,15 @@ export class NoteComponent implements OnInit {
     });
   }
 
-  showEditDialog() {
-    const dialogRef = this.dialog.open(EditNoteComponent);
+  showEditDialog(item?) {
+    const dialogRef = this.dialog.open(EditNoteComponent, {
+      data: item ? item : null
+    });
+
+
     dialogRef.afterClosed().subscribe(result => {
       if (result != '') {
+        this.isLoading = true;
         this.getData();
       }
     });
@@ -74,6 +82,7 @@ export class NoteComponent implements OnInit {
   }
 
   getData() {
+    this.isLoading = true;
     let env = this;
     this.noteList = [];
     this.ngfs.collection(this.collectionName)
@@ -87,6 +96,7 @@ export class NoteComponent implements OnInit {
             date: doc.data().date.toDate()
           });
         });
+        env.isLoading = false;
       });
   }
 
@@ -94,11 +104,13 @@ export class NoteComponent implements OnInit {
     console.log(id);
     this.ngfs.collection(this.collectionName).doc(id).delete()
       .then(() => {
+        this.isLoading = true;
         this.getData();
       });
+
   }
 
-  trackByFn(item,index){
+  trackByFn(item, index) {
     return item.id;
   }
 

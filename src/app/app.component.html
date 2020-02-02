@@ -1,51 +1,50 @@
 <mat-toolbar class="top-toolbar" color="primary">
-  <button mat-icon-button (click)="toggleSideNav(sideNav)">
+    <button mat-icon-button (click)="toggleSideNav(sideNav)">
     <mat-icon>menu</mat-icon>
   </button>
-  <span>Welecome to dob !</span>
+    <span>Welecome to dob !</span>
 
-  <span class="toolbar-seprator"></span>
+    <span class="toolbar-seprator"></span>
 
-  <button mat-icon-button>
+    <button mat-icon-button>
     <mat-icon>message</mat-icon>
   </button>
-  <button mat-icon-button>
+    <button mat-icon-button>
     <mat-icon>exit_to_app</mat-icon>
   </button>
 </mat-toolbar>
 
 <mat-sidenav-container class="app-container">
-  <mat-sidenav #sideNav opened="true" mode="side" class="app-sidenav">
-    <mat-tree [dataSource]="nestedDataSource" [treeControl]="nestedTreeControl" class="example-tree">
-      <mat-tree-node *matTreeNodeDef="let node">
-          <li class="mat-tree-node" [routerLink]="node.path">
-              <button mat-icon-button>
+    <mat-sidenav #sideNav opened="false" mode="side" class="app-sidenav">
+        <mat-tree [dataSource]="nestedDataSource" [treeControl]="nestedTreeControl" class="example-tree">
+            <mat-tree-node *matTreeNodeDef="let node">
+                <li class="mat-tree-node" [routerLink]="node.path">
+                    <button mat-icon-button>
                 <mat-icon>{{node.icon}}</mat-icon>
               </button>
-              <span>
+                    <span>
                 {{node.name}}
               </span>
-          </li>
-      </mat-tree-node>
-  
-      <mat-nested-tree-node *matTreeNodeDef="let node; when: hasNestedChild">
-          <li>
-              <div class="mat-tree-node">
-                  <button mat-icon-button matTreeNodeToggle>
+                </li>
+            </mat-tree-node>
+
+            <mat-nested-tree-node *matTreeNodeDef="let node; when: hasNestedChild">
+                <li>
+                    <div class="mat-tree-node">
+                        <button mat-icon-button matTreeNodeToggle>
                       <mat-icon class="mat-icon-rtl-mirror">
                           {{nestedTreeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
                       </mat-icon>
-                  </button>
-                  {{node.name}}
-              </div>
-              <ul [class.example-tree-invisible]="!nestedTreeControl.isExpanded(node)">
-                  <ng-container matTreeNodeOutlet></ng-container>
-              </ul>
-          </li>
-      </mat-nested-tree-node>
-  </mat-tree>
-  </mat-sidenav>
-  <mat-sidenav-content>
-    <router-outlet></router-outlet>
-  </mat-sidenav-content>
+                  </button> {{node.name}}
+                    </div>
+                    <ul [class.example-tree-invisible]="!nestedTreeControl.isExpanded(node)">
+                        <ng-container matTreeNodeOutlet></ng-container>
+                    </ul>
+                </li>
+            </mat-nested-tree-node>
+        </mat-tree>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
 </mat-sidenav-container>

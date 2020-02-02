@@ -1,4 +1,41 @@
 <mat-card>
+    <mat-form-field class="full-width">
+        <input matInput placeholder="想買的東西" [(ngModel)]="obj.event" type="text">
+    </mat-form-field>
+    <mat-form-field class="full-width">
+        <input matInput placeholder="金額" [(ngModel)]="obj.event_cost" type="number">
+    </mat-form-field>
+    <mat-form-field class="full-width">
+        <input matInput placeholder="每月收入" [(ngModel)]="obj.monthly_income" type="number">
+    </mat-form-field>
+    <mat-form-field class="full-width">
+        <input matInput placeholder="每月存入" [(ngModel)]="obj.monthly_save" type="number">
+    </mat-form-field>
+    <mat-form-field class="full-width">
+        <input matInput placeholder="存款餘額" [(ngModel)]="obj.bank_money" type="number">
+    </mat-form-field>
+    <mat-form-field class="full-width">
+        <input matInput placeholder="總資產" [(ngModel)]="obj.total_money" type="number">
+    </mat-form-field>
+    <mat-form-field class="full-width">
+        <input matInput placeholder="要花幾個月" [(ngModel)]="obj.time" type="number">
+    </mat-form-field>
+    <mat-form-field class="full-width">
+        <input matInput placeholder="每日花費" [(ngModel)]="obj.daily_cost" type="number">
+    </mat-form-field>
+</mat-card>
+<mat-card>
+    <p>想買的東西：{{obj.event}}</p>
+    <p>金額：{{obj.event_cost}}</p>
+    <p>每月收入：{{obj.monthly_income}}</p>
+    <p>每月存入：{{obj.monthly_save}}</p>
+    <p>存款餘額：{{obj.bank_money}}</p>
+    <p>總資產：{{obj.total_money}}</p>
+    <p>要花幾個月：{{obj.time}}</p>
+    <p>每日花費：{{obj.daily_cost}}</p>
+</mat-card>
+
+<!-- <mat-card>
     <mat-grid-list cols="7" rowHeight="2:1">
         <mat-grid-tile *ngFor="let title of displayTitles">{{title}}</mat-grid-tile>
     </mat-grid-list>
@@ -6,4 +43,4 @@
     <mat-grid-list cols="7" rowHeight="1.5:1" *ngFor="let week of [1,2,3,4]">
         <mat-grid-tile *ngFor="let date of [1,2,3,4,5,6,7]">{{date}}</mat-grid-tile>
     </mat-grid-list>
-</mat-card>
+</mat-card> -->

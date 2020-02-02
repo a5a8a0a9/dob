@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import {
   MatButtonModule, MatIconModule, MatSidenavModule, MatToolbarModule,
   MatCardModule, MatTreeModule, MatGridListModule, MatTableModule,
-  MatInputModule,MatDialogModule, 
+  MatInputModule,MatDialogModule, MatProgressSpinnerModule,MatTabsModule
 } from '@angular/material';
 import { LayoutModule } from '@angular/cdk/layout';
 
@@ -11,7 +11,8 @@ const MATMODULES = [
   MatButtonModule, MatIconModule, MatSidenavModule,
   MatToolbarModule, MatCardModule, MatTreeModule,
   MatGridListModule, MatTableModule, MatInputModule,
-  MatDialogModule,LayoutModule 
+  MatDialogModule,LayoutModule ,MatProgressSpinnerModule,
+  MatTabsModule
 ];
 
 @NgModule({
