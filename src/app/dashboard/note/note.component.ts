@@ -7,6 +7,8 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 import { MatDialog } from '@angular/material';
 import { EditNoteComponent } from './dialogs/edit-note/edit-note.component';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import * as swal from 'sweetalert2';
+import { s } from '@angular/core/src/render3';
 
 
 @Component({
@@ -102,11 +104,26 @@ export class NoteComponent implements OnInit {
 
   delete(id) {
     console.log(id);
-    this.ngfs.collection(this.collectionName).doc(id).delete()
-      .then(() => {
-        this.isLoading = true;
-        this.getData();
-      });
+
+    swal.default.fire({
+      title:'確定刪除?',
+      confirmButtonText:'確定的啦！',
+      cancelButtonText:'不要哦！！！',
+      showCancelButton:true,
+      type:'warning'
+    }).then(result=>{
+      console.log(result);
+      if (result.value){
+        this.ngfs.collection(this.collectionName).doc(id).delete()
+        .then(() => {
+          this.isLoading = true;
+          swal.default.fire({title:'刪除成功',type:'success'});
+          this.getData();
+        });
+      }
+    })
+
+    
 
   }
 
