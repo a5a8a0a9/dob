@@ -1,11 +1,49 @@
+.big-card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: url('../../../assets/images/hexbg.png') no-repeat center center;
+}
+
 .profile-card {
+    background: transparent;
     max-width: 400px;
     border-radius: 10px;
-    box-shadow: 10px 5px 5px darkgrey !important;
-    border: 1px double #9e9e9e;
+    /* box-shadow: 10px 5px 5px darkgrey !important; */
+    border: 3px solid #9e9e9e;
 }
 
 .header-image {
     background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
     background-size: cover;
+}
+
+.wrap {
+    display: block;
+    width: auto;
+    height: auto;
+    background: url("../../../assets/images/hexbg.png") no-repeat center center;
+    background-size: cover;
+}
+
+.layer {
+    background: rgba(255, 255, 255, 0.5);
+    width: auto;
+    height: auto;
+}
+
+.layer .wrap {
+    font-weight: bold;
+    font-size: 100px;
+    text-align: center;
+    line-height: auto;
+    color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+
+.text-style {
+    color: wheat;
+    font-size: 1.5em;
+    font-weight: bold;
 }

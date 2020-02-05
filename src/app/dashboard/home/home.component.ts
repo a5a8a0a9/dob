@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from "@angular/platform-browser";
+import { finalize } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -8,6 +11,15 @@ import { Title } from "@angular/platform-browser";
 })
 export class HomeComponent implements OnInit {
 
+
+  uploadPercent: Observable<number>;
+  downloadURL: Observable<string>;
+
+  name: string;
+  content: string;
+  description: string;
+  image: string = null;
+
   constructor(private title:Title,) {
     
    }
@@ -15,5 +27,6 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.title.setTitle("首頁");
   }
+
 
 }
